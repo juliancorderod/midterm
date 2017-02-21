@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class camControl : MonoBehaviour {
 
 	Camera cam;
 
 	public bool endPic = false;
-	public bool takenPic = false;
-	public bool takingPic = false;
+	public static bool takenPic = false;
+	public static bool takingPic = false;
 
 	public bool liftCamTrue = false;
 
@@ -17,9 +18,11 @@ public class camControl : MonoBehaviour {
 	public GameObject cameraMesh;
 	public GameObject camFrame;
 
+	public GameObject shuttText;
+
 	float camMovLerp = 0f;
 
-
+	float upDownLook = 0f;
 
 
 	// Use this for initialization
@@ -27,17 +30,10 @@ public class camControl : MonoBehaviour {
 		cam = GetComponent<Camera>();
 
 
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-
-
-//		cameraMesh.transform.localPosition = new Vector3(Mathf.Lerp(cameraMesh.transform.localPosition.x, 0,camMovLerp), 
-//			Mathf.Lerp(cameraMesh.transform.localPosition.y, 0.5f,camMovLerp),
-//			Mathf.Lerp(cameraMesh.transform.localPosition.z, 0.5f,camMovLerp));
 
 		cameraMesh.transform.localPosition = new Vector3(Mathf.Lerp(0.11f, 0,camMovLerp), Mathf.Lerp( 0.19f, 0.5f,camMovLerp), Mathf.Lerp(0.82f, 0.5f,camMovLerp));
 
@@ -61,14 +57,6 @@ public class camControl : MonoBehaviour {
 			StartCoroutine (camBack());
 
 		}
-
-//		if(!Input.GetKey(KeyCode.Tab) && !takingPic){
-//
-//			camMovLerp -= 0.5f * Time.deltaTime;
-//
-//		}
-
-
 		if(Input.GetKeyDown(KeyCode.Space) && takingPic){
 
 
@@ -76,6 +64,15 @@ public class camControl : MonoBehaviour {
 
 
 		} 
+
+		if(takingPic){
+
+			upDownLook -= Input.GetAxis("Mouse Y") * Time.deltaTime * 180f;
+			upDownLook = Mathf.Clamp(upDownLook,-80f,80f);
+
+			transform.eulerAngles = new Vector3(upDownLook, transform.eulerAngles.y,0);
+
+		}
 
 
 
@@ -85,14 +82,30 @@ public class camControl : MonoBehaviour {
 			takenPic = false;
 		}
 
-		Debug.Log(camMovLerp);
+
+
+		shuttText.GetComponent<Text>().text = shutterSpeed + "";
 
 
 
+		if (Input.GetKeyDown(KeyCode.E) && !takingPic){
+
+			shutterSpeed += 1;
+
+		}
+		if (Input.GetKeyDown(KeyCode.Q) && !takingPic){
+
+			shutterSpeed -= 1;
+
+		}
+
+		Debug.Log(shutterSpeed);
 
 	}
 
 	public IEnumerator liftCam(){
+
+		shuttText.SetActive(false);
 
 		camMovLerp += 1f * Time.deltaTime;
 
@@ -111,9 +124,13 @@ public class camControl : MonoBehaviour {
 
 	public IEnumerator camBack(){
 
+
+		transform.localEulerAngles = new Vector3(0,0.75f,0);
+
 		camFrame.SetActive(false);
 
 		camMovLerp -= 1f * Time.deltaTime;
+
 
 		while (camMovLerp <= 0.8f){
 
@@ -123,6 +140,8 @@ public class camControl : MonoBehaviour {
 		cameraMesh.SetActive(true);
 
 		takingPic = false;
+
+		shuttText.SetActive(true);
 
 	}
 
@@ -141,4 +160,12 @@ public class camControl : MonoBehaviour {
 		takenPic = true;
 
 	}
+
+//	public IEnumerator changeShutter(){
+//
+//
+//
+//	}
+
+
 }

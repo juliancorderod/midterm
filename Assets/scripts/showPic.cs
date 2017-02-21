@@ -19,7 +19,8 @@ public class showPic : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(camObject.GetComponent<camControl>().takenPic){
+		//if(camObject.GetComponent<camControl>().takenPic){
+		if(camControl.takenPic){
 
 			UnityEditor.AssetDatabase.Refresh();
 

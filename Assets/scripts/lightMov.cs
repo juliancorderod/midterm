@@ -9,12 +9,28 @@ public class lightMov : MonoBehaviour {
 	public float speedMax;
 	public float speedMin;
 
+	Color[] colors;
+
+	int index;
+
 	// Use this for initialization
 	void Start () {
 
 		speed = Random.Range(speedMin, speedMax);
 
-		GetComponent<Light>().color = new Color(Random.Range(0.00f,1.00f),Random.Range(0.00f,1.00f),Random.Range(0.00f,1.00f));
+
+		colors = new Color[5];
+
+		colors[0] = Color.blue;
+		colors[1] = Color.red;
+		colors[2] = Color.green;
+		colors[3] = Color.yellow;
+		colors[4] = Color.magenta;
+
+
+		//colorPicked = Random.Range(0,colors.Length);
+
+		GetComponent<Light>().color = colors[Random.Range(0,colors.Length)];
 
 	}
 	
@@ -22,6 +38,8 @@ public class lightMov : MonoBehaviour {
 	void Update () {
 
 		transform.Translate( new Vector3(speed*Time.deltaTime,0,0));
+
+
 		
 	}
 }
