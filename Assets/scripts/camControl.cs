@@ -29,7 +29,7 @@ public class camControl : MonoBehaviour {
 	void Start () {
 		cam = GetComponent<Camera>();
 
-
+		cam.cullingMask = (1 << 0 | 1 << 8);
 	}
 	
 	// Update is called once per frame
@@ -72,6 +72,17 @@ public class camControl : MonoBehaviour {
 
 			transform.eulerAngles = new Vector3(upDownLook, transform.eulerAngles.y,0);
 
+			if(Input.GetKey(KeyCode.Z) && cam.fieldOfView >= 1f){
+
+				cam.fieldOfView -= 15f * Time.deltaTime;
+
+			}
+			if(Input.GetKey(KeyCode.X) && cam.fieldOfView <= 60f){
+
+				cam.fieldOfView += 15f * Time.deltaTime;
+
+			}
+
 		}
 
 
@@ -79,7 +90,11 @@ public class camControl : MonoBehaviour {
 		if (takenPic) {
 
 			cam.clearFlags = CameraClearFlags.SolidColor;
+			cam.cullingMask = (1 << 0 | 1 << 8);
+			cam.fieldOfView = 60;
 			takenPic = false;
+
+
 		}
 
 
@@ -148,8 +163,10 @@ public class camControl : MonoBehaviour {
 
 	public IEnumerator startPic(){
 
+		cam.cullingMask = (1 << 0);
 
 		cam.clearFlags = CameraClearFlags.Nothing;
+
 
 		yield return new WaitForSeconds(shutterSpeed);
 

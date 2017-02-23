@@ -21,11 +21,11 @@ public class lightMov : MonoBehaviour {
 
 		colors = new Color[5];
 
-		colors[0] = Color.blue;
-		colors[1] = Color.red;
-		colors[2] = Color.green;
-		colors[3] = Color.yellow;
-		colors[4] = Color.magenta;
+		colors[0] = new Color((239f/255f), (231f/255f), (201f/255f));
+		colors[1] = new Color((255f/255f), (199f/255f), (0f/255f));
+		colors[2] = new Color((130f/255f), (102f/255f), (3f/255f));
+		colors[3] = new Color((191f/255f), (115f/255f), (15f/255f));
+		colors[4] = new Color((99f/255f), (43f/255f), (16f/255f));
 
 
 		//colorPicked = Random.Range(0,colors.Length);
