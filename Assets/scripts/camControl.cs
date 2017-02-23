@@ -15,6 +15,8 @@ public class camControl : MonoBehaviour {
 
 	public int shutterSpeed;
 
+	public static int picNumber = 0;
+
 	public GameObject cameraMesh;
 	public GameObject camFrame;
 
@@ -163,6 +165,8 @@ public class camControl : MonoBehaviour {
 
 	public IEnumerator startPic(){
 
+		picNumber += 1;
+
 		cam.cullingMask = (1 << 0);
 
 		cam.clearFlags = CameraClearFlags.Nothing;
@@ -171,7 +175,7 @@ public class camControl : MonoBehaviour {
 		yield return new WaitForSeconds(shutterSpeed);
 
 		//endPic = true;
-		Application.CaptureScreenshot( "Assets/Resources/pic 1.png");
+		Application.CaptureScreenshot( "Assets/Resources/pic" + picNumber + ".png");
 
 		yield return new WaitForSeconds(0.5f);
 		takenPic = true;

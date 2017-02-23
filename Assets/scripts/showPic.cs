@@ -18,13 +18,14 @@ public class showPic : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log("pic" + camControl.picNumber + ".png");
 
 		//if(camObject.GetComponent<camControl>().takenPic){
 		if(camControl.takenPic){
 
 			UnityEditor.AssetDatabase.Refresh();
 
-			Texture pic1 = (Texture2D) Resources.Load ("pic 1");
+			Texture pic1 = (Texture2D) Resources.Load ("pic" + camControl.picNumber);
 			GetComponent<RawImage>().texture = pic1;
 
 		}
