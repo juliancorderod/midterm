@@ -9,6 +9,8 @@ public class lightMov : MonoBehaviour {
 	public float speedMax;
 	public float speedMin;
 
+	public float wrapVal;
+
 	Color[] colors;
 
 	int index;
@@ -39,7 +41,25 @@ public class lightMov : MonoBehaviour {
 
 		transform.Translate( new Vector3(speed*Time.deltaTime,0,0));
 
+		if( transform.position.x >= wrapVal){
+			transform.position = new Vector3(-wrapVal, transform.position.y,transform.position.z);
+		}
+		if( transform.position.y >= wrapVal){
+			transform.position = new Vector3(transform.position.x, -wrapVal, transform.position.z);
+		}
+		if( transform.position.z >= wrapVal){
+			transform.position = new Vector3(transform.position.x, transform.position.y, -wrapVal);
+		}
 
+		if( transform.position.x <= -wrapVal){
+			transform.position = new Vector3(wrapVal, transform.position.y,transform.position.z);
+		}
+		if( transform.position.y <= -wrapVal){
+			transform.position = new Vector3(transform.position.x, wrapVal, transform.position.z);
+		}
+		if( transform.position.z <= -wrapVal){
+			transform.position = new Vector3(transform.position.x, transform.position.y, wrapVal);
+		}
 		
 	}
 }

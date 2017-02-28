@@ -7,13 +7,18 @@ public class camControl : MonoBehaviour {
 
 	Camera cam;
 
+	public GameObject cam2;
+
 	public bool endPic = false;
 	public static bool takenPic = false;
 	public static bool takingPic = false;
 
-	public bool liftCamTrue = false;
+	public static bool actuallyTakingPic = false;
 
+	public bool liftCamTrue = false;
 	public int shutterSpeed;
+
+	public static bool musicStart = false;
 
 	public static int picNumber = 0;
 
@@ -21,10 +26,17 @@ public class camControl : MonoBehaviour {
 	public GameObject camFrame;
 
 	public GameObject shuttText;
+	public GameObject picsLeftText;
+
+	public static int picsLeft = 10;
 
 	float camMovLerp = 0f;
 
-	float upDownLook = 0f;
+	public float upDownLook = 0f;
+
+	RenderTexture rendText1;
+
+	public static float rotationVal = 100f;
 
 
 	// Use this for initialization
@@ -37,9 +49,12 @@ public class camControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		Cursor.lockState = CursorLockMode.Locked;
+
 		cameraMesh.transform.localPosition = new Vector3(Mathf.Lerp(0.11f, 0,camMovLerp), Mathf.Lerp( 0.19f, 0.5f,camMovLerp), Mathf.Lerp(0.82f, 0.5f,camMovLerp));
 
 		if(Input.GetKeyDown(KeyCode.Tab) && !takingPic){
+			//&& !actuallyTakingPic){
 
 			//camMovLerp += 1f * Time.deltaTime;
 
@@ -50,7 +65,7 @@ public class camControl : MonoBehaviour {
 			StartCoroutine (liftCam());
 
 		}
-		if(Input.GetKeyDown(KeyCode.Tab) && takingPic){
+		if(Input.GetKeyDown(KeyCode.Tab) && takingPic && !actuallyTakingPic){
 			
 			liftCamTrue = false;
 		}
@@ -59,7 +74,8 @@ public class camControl : MonoBehaviour {
 			StartCoroutine (camBack());
 
 		}
-		if(Input.GetKeyDown(KeyCode.Space) && takingPic){
+		if(Input.GetKeyDown(KeyCode.Space) && takingPic && picsLeft >=1 && !actuallyTakingPic || 
+			Input.GetKeyDown(KeyCode.Mouse0) && takingPic && picsLeft >=1 && !actuallyTakingPic){
 
 
 			StartCoroutine (startPic());
@@ -69,8 +85,10 @@ public class camControl : MonoBehaviour {
 
 		if(takingPic){
 
-			upDownLook -= Input.GetAxis("Mouse Y") * Time.deltaTime * 180f;
+			upDownLook -= Input.GetAxis("Mouse Y") * Time.deltaTime * rotationVal;
 			upDownLook = Mathf.Clamp(upDownLook,-80f,80f);
+
+			//rotationVal = 80;
 
 			transform.eulerAngles = new Vector3(upDownLook, transform.eulerAngles.y,0);
 
@@ -96,6 +114,9 @@ public class camControl : MonoBehaviour {
 			cam.fieldOfView = 60;
 			takenPic = false;
 
+			rotationVal = 100f;
+
+			actuallyTakingPic = false;
 
 		}
 
@@ -104,25 +125,42 @@ public class camControl : MonoBehaviour {
 		shuttText.GetComponent<Text>().text = shutterSpeed + "";
 
 
+		picsLeft = 10 - picNumber;
 
-		if (Input.GetKeyDown(KeyCode.E) && !takingPic){
+		if (picsLeft == 0){
+
+			picsLeftText.GetComponent<Text>().text = "roll finished";
+
+		} else{
+
+			picsLeftText.GetComponent<Text>().text = picsLeft + "";
+
+		}
+
+
+
+		if (Input.GetKeyDown(KeyCode.E) && !takingPic && shutterSpeed  <= 19){
 
 			shutterSpeed += 1;
 
 		}
-		if (Input.GetKeyDown(KeyCode.Q) && !takingPic){
+		if (Input.GetKeyDown(KeyCode.Q) && !takingPic && shutterSpeed  >= 1){
 
 			shutterSpeed -= 1;
 
 		}
 
-		Debug.Log(shutterSpeed);
+		Debug.Log(rotationVal);
 
 	}
+
+
+
 
 	public IEnumerator liftCam(){
 
 		shuttText.SetActive(false);
+		picsLeftText.SetActive(false);
 
 		camMovLerp += 1f * Time.deltaTime;
 
@@ -137,6 +175,7 @@ public class camControl : MonoBehaviour {
 		takingPic = true;
 
 		camFrame.SetActive(true);
+		musicStart = true;
 	}
 
 	public IEnumerator camBack(){
@@ -146,7 +185,7 @@ public class camControl : MonoBehaviour {
 
 		camFrame.SetActive(false);
 
-		camMovLerp -= 1f * Time.deltaTime;
+		camMovLerp -= 1.5f * Time.deltaTime;
 
 
 		while (camMovLerp <= 0.8f){
@@ -159,34 +198,43 @@ public class camControl : MonoBehaviour {
 		takingPic = false;
 
 		shuttText.SetActive(true);
+		picsLeftText.SetActive(true);
 
 	}
 
 
 	public IEnumerator startPic(){
 
-		picNumber += 1;
+		//cam.depth = 0;
+		//cam2.SetActive (true);
+		//cam.targetTexture = rendText1;
 
-		cam.cullingMask = (1 << 0);
+		actuallyTakingPic = true;
+
+		picNumber += 1;
+		rotationVal = 30f;
+
+		cam.cullingMask = (1 << 0);//this ignores cars
 
 		cam.clearFlags = CameraClearFlags.Nothing;
 
 
 		yield return new WaitForSeconds(shutterSpeed);
 
+		//cam.depth = 1;
+		//cam2.SetActive (false);
+
+
+		//yield return new WaitForSeconds(0.1f);
 		//endPic = true;
 		Application.CaptureScreenshot( "Assets/Resources/pic" + picNumber + ".png");
 
 		yield return new WaitForSeconds(0.5f);
 		takenPic = true;
 
-	}
 
-//	public IEnumerator changeShutter(){
-//
-//
-//
-//	}
+
+	}
 
 
 }
