@@ -22,45 +22,88 @@ public class showPic : MonoBehaviour {
 
 		//if(camObject.GetComponent<camControl>().takenPic){
 
-
+		//picShown  = camControl.picNumber;
 
 		if(camControl.takenPic){
 
 			UnityEditor.AssetDatabase.Refresh();
 
-			Texture pic1 = (Texture2D) Resources.Load ("pic" + picShown);
-			GetComponent<RawImage>().texture = pic1;
+			//Texture allPics = (Texture2D) Resources.Load ("pic" + picShown);
+			//GetComponent<RawImage>().texture = allPics;
 
+			Texture pic1 = (Texture2D) Resources.Load ("pic1");
+			Texture pic2 = (Texture2D) Resources.Load ("pic2");
+			Texture pic3 = (Texture2D) Resources.Load ("pic3");
+			Texture pic4 = (Texture2D) Resources.Load ("pic4");
+			Texture pic5 = (Texture2D) Resources.Load ("pic5");
+			Texture pic6 = (Texture2D) Resources.Load ("pic6");
+			Texture pic7 = (Texture2D) Resources.Load ("pic7");
+			Texture pic8 = (Texture2D) Resources.Load ("pic8");
+			Texture pic9 = (Texture2D) Resources.Load ("pic9");
+			Texture pic10 = (Texture2D) Resources.Load ("pic10");
+
+			if (tag == "pic1"){
+			GetComponent<RawImage>().texture = pic1;
+			}
+			if (tag == "pic2"){
+				GetComponent<RawImage>().texture = pic2;
+			}
+			if (tag == "pic3"){
+				GetComponent<RawImage>().texture = pic3;
+			}
+			if (tag == "pic4"){
+				GetComponent<RawImage>().texture = pic4;
+			}
+			if (tag == "pic5"){
+				GetComponent<RawImage>().texture = pic5;
+			}
+			if (tag == "pic6"){
+				GetComponent<RawImage>().texture = pic6;
+			}
+			if (tag == "pic7"){
+				GetComponent<RawImage>().texture = pic7;
+			}
+			if (tag == "pic8"){
+				GetComponent<RawImage>().texture = pic8;
+			}
+			if (tag == "pic9"){
+				GetComponent<RawImage>().texture = pic9;
+			}
+			if (tag == "pic10"){
+				GetComponent<RawImage>().texture = pic10;
+			}
 		}
 
 
 
-//		if (camControl.picsLeft == 0){
-//
-//			if (Input.GetKey(KeyCode.LeftShift) && picShown >= 0){
-//
-//				GetComponent<RawImage>().enabled = true;
-//
-//			}
-//			if (Input.GetKeyDown(KeyCode.LeftArrow)){
-//
-//				picShown -= 1;
-//				UnityEditor.AssetDatabase.Refresh();
-//
-//			}
-//			if (Input.GetKeyDown(KeyCode.RightArrow) && picShown <= 10){
-//
-//				picShown += 1;
-//				UnityEditor.AssetDatabase.Refresh();
-//
-//			}
+		if (camControl.picsLeft == 0){
+
+			if (Input.GetKey(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag == "pic" + picShown){
+
+				GetComponent<RawImage>().enabled = true;
+
+			}else {
+				GetComponent<RawImage>().enabled = false;
+
+			} 
+			if (Input.GetKeyDown(KeyCode.LeftArrow) && picShown >= 2){
+
+				picShown -= 1;
 
 
-		//} else {
+			}
+			if (Input.GetKeyDown(KeyCode.RightArrow) && picShown <= 9){
+
+				picShown += 1;
+
+
+			}
+		
+		} else {
 
 			picShown  = camControl.picNumber;
 
-		if (Input.GetKey(KeyCode.LeftShift) && !camControl.actuallyTakingPic){
+		if (Input.GetKey(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag == "pic" + picShown){
 
 				GetComponent<RawImage>().enabled = true;
 
@@ -69,7 +112,7 @@ public class showPic : MonoBehaviour {
 
 			}
 
-		//}
+		}
 		
 	}
 		

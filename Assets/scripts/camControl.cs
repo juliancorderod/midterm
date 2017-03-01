@@ -118,6 +118,8 @@ public class camControl : MonoBehaviour {
 
 			actuallyTakingPic = false;
 
+			//StartCoroutine (camBack());
+
 		}
 
 
@@ -212,7 +214,7 @@ public class camControl : MonoBehaviour {
 		actuallyTakingPic = true;
 
 		picNumber += 1;
-		rotationVal = 30f;
+		rotationVal = 25f;
 
 		cam.cullingMask = (1 << 0);//this ignores cars
 
