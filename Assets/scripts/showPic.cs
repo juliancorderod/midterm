@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class showPic : MonoBehaviour {
 
 	public GameObject camObject;
+	public GameObject greyOut;
 
 	public int picShown;
 
@@ -28,8 +29,8 @@ public class showPic : MonoBehaviour {
 
 			UnityEditor.AssetDatabase.Refresh();
 
-			//Texture allPics = (Texture2D) Resources.Load ("pic" + picShown);
-			//GetComponent<RawImage>().texture = allPics;
+			Texture allPics = (Texture2D) Resources.Load ("pic" + picShown);
+			GetComponent<RawImage>().texture = allPics;
 
 			Texture pic1 = (Texture2D) Resources.Load ("pic1");
 			Texture pic2 = (Texture2D) Resources.Load ("pic2");
@@ -78,12 +79,15 @@ public class showPic : MonoBehaviour {
 
 		if (camControl.picsLeft == 0){
 
-			if (Input.GetKey(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag == "pic" + picShown){
+			if (Input.GetKey(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag != "allPics"){
 
 				GetComponent<RawImage>().enabled = true;
 
+				greyOut.SetActive(true);
+
 			}else {
 				GetComponent<RawImage>().enabled = false;
+				greyOut.SetActive(false);
 
 			} 
 			if (Input.GetKeyDown(KeyCode.LeftArrow) && picShown >= 2){
@@ -92,7 +96,7 @@ public class showPic : MonoBehaviour {
 
 
 			}
-			if (Input.GetKeyDown(KeyCode.RightArrow) && picShown <= 9){
+			if (Input.GetKeyDown(KeyCode.RightArrow) && picShown <= 8){
 
 				picShown += 1;
 
@@ -103,12 +107,14 @@ public class showPic : MonoBehaviour {
 
 			picShown  = camControl.picNumber;
 
-		if (Input.GetKey(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag == "pic" + picShown){
+			if (Input.GetKey(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag == "allPics"){
 
 				GetComponent<RawImage>().enabled = true;
+				greyOut.SetActive(true);
 
 			} else {
 				GetComponent<RawImage>().enabled = false;
+				greyOut.SetActive(false);
 
 			}
 

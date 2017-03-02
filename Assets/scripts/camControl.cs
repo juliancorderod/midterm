@@ -27,6 +27,7 @@ public class camControl : MonoBehaviour {
 
 	public GameObject shuttText;
 	public GameObject picsLeftText;
+	public GameObject fovText;
 
 	public static int picsLeft = 10;
 
@@ -118,6 +119,7 @@ public class camControl : MonoBehaviour {
 
 			actuallyTakingPic = false;
 
+			camFrame.SetActive(true);
 			//StartCoroutine (camBack());
 
 		}
@@ -125,9 +127,10 @@ public class camControl : MonoBehaviour {
 
 
 		shuttText.GetComponent<Text>().text = shutterSpeed + "";
+		fovText.GetComponent<Text>().text = Mathf.Round( cam.fieldOfView) + "";
 
 
-		picsLeft = 10 - picNumber;
+		picsLeft = 9 - picNumber;
 
 		if (picsLeft == 0){
 
@@ -141,12 +144,12 @@ public class camControl : MonoBehaviour {
 
 
 
-		if (Input.GetKeyDown(KeyCode.E) && !takingPic && shutterSpeed  <= 19){
+		if (Input.GetKeyDown(KeyCode.E) && !actuallyTakingPic && shutterSpeed  <= 19){
 
 			shutterSpeed += 1;
 
 		}
-		if (Input.GetKeyDown(KeyCode.Q) && !takingPic && shutterSpeed  >= 1){
+		if (Input.GetKeyDown(KeyCode.Q) && !actuallyTakingPic && shutterSpeed  >= 1){
 
 			shutterSpeed -= 1;
 
@@ -161,8 +164,8 @@ public class camControl : MonoBehaviour {
 
 	public IEnumerator liftCam(){
 
-		shuttText.SetActive(false);
-		picsLeftText.SetActive(false);
+		//shuttText.SetActive(false);
+		//picsLeftText.SetActive(false);
 
 		camMovLerp += 1f * Time.deltaTime;
 
@@ -199,13 +202,17 @@ public class camControl : MonoBehaviour {
 
 		takingPic = false;
 
-		shuttText.SetActive(true);
-		picsLeftText.SetActive(true);
+		//shuttText.SetActive(true);
+		//picsLeftText.SetActive(true);
 
 	}
 
 
 	public IEnumerator startPic(){
+
+		camFrame.SetActive(false);
+
+		yield return new WaitForSeconds(0.01f);
 
 		//cam.depth = 0;
 		//cam2.SetActive (true);
@@ -227,7 +234,7 @@ public class camControl : MonoBehaviour {
 		//cam2.SetActive (false);
 
 
-		//yield return new WaitForSeconds(0.1f);
+
 		//endPic = true;
 		Application.CaptureScreenshot( "Assets/Resources/pic" + picNumber + ".png");
 
