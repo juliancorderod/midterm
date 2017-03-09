@@ -12,7 +12,7 @@ public class musicScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Debug.Log(camControl.musicStart);
+		//Debug.Log(camControl.musicStart);
 
 		if (camControl.musicStart){
 

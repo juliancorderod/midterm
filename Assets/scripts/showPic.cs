@@ -8,6 +8,8 @@ public class showPic : MonoBehaviour {
 	public GameObject camObject;
 	public GameObject greyOut;
 
+	public static bool picOn = false;
+
 	public int picShown;
 
 	// Use this for initialization
@@ -19,7 +21,7 @@ public class showPic : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(picShown);
+		//Debug.Log(picShown);
 
 		//if(camObject.GetComponent<camControl>().takenPic){
 
@@ -28,6 +30,7 @@ public class showPic : MonoBehaviour {
 		if(camControl.takenPic){
 
 			UnityEditor.AssetDatabase.Refresh();
+
 
 			Texture allPics = (Texture2D) Resources.Load ("pic" + picShown);
 			GetComponent<RawImage>().texture = allPics;
@@ -75,19 +78,25 @@ public class showPic : MonoBehaviour {
 			}
 		}
 
-
+		//Debug.Log(camControl.activateShift);
 
 		if (camControl.picsLeft == 0){
 
-			if (Input.GetKey(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag != "allPics"){
+			if (Input.GetKeyDown(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag != "allPics" && !picOn){ //|| camControl.activatePic){
+
+				picOn = true;
+
+				camControl.activateShift = false;
 
 				GetComponent<RawImage>().enabled = true;
 
 				greyOut.SetActive(true);
 
-			}else {
+			}else{ //if(Input.GetKeyDown(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag != "allPics" && picOn) {
 				GetComponent<RawImage>().enabled = false;
 				greyOut.SetActive(false);
+
+				//picOn = false;
 
 			} 
 			if (Input.GetKeyDown(KeyCode.LeftArrow) && picShown >= 2){

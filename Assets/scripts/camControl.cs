@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//using UnityStandardAssets.ImageEffects;
 
 public class camControl : MonoBehaviour {
 
@@ -14,8 +15,12 @@ public class camControl : MonoBehaviour {
 	public static bool takingPic = false;
 
 	public static bool actuallyTakingPic = false;
+	public static bool takingFirstPic = false;
+	public static bool takenFirstPic = false;
+	public static bool activateShift = false;
 
 	public bool liftCamTrue = false;
+	public static bool liftCamTrueFirst = false;
 	public int shutterSpeed;
 
 	public static bool musicStart = false;
@@ -35,16 +40,27 @@ public class camControl : MonoBehaviour {
 
 	public float upDownLook = 0f;
 
-	RenderTexture rendText1;
+	public RenderTexture rendText1;
 
 	public static float rotationVal = 100f;
 
+	public showPicReal gallery;
+
+	public GameObject darkBox;
+
+
+	bool saveToTexture = false;
 
 	// Use this for initialization
 	void Start () {
 		cam = GetComponent<Camera>();
 
 		cam.cullingMask = (1 << 0 | 1 << 8);
+
+		rendText1.width = Screen.width;
+		rendText1.height = Screen.height;
+
+		darkBox.SetActive(true);
 	}
 	
 	// Update is called once per frame
@@ -60,6 +76,7 @@ public class camControl : MonoBehaviour {
 			//camMovLerp += 1f * Time.deltaTime;
 
 			liftCamTrue = true; 
+			liftCamTrueFirst = true;
 		}
 		if (liftCamTrue && camMovLerp <= 1){
 
@@ -82,6 +99,8 @@ public class camControl : MonoBehaviour {
 			StartCoroutine (startPic());
 
 
+
+
 		} 
 
 		if(takingPic){
@@ -98,7 +117,7 @@ public class camControl : MonoBehaviour {
 				cam.fieldOfView -= 15f * Time.deltaTime;
 
 			}
-			if(Input.GetKey(KeyCode.X) && cam.fieldOfView <= 60f){
+			if(Input.GetKey(KeyCode.X) && cam.fieldOfView <= 90f){
 
 				cam.fieldOfView += 15f * Time.deltaTime;
 
@@ -110,6 +129,8 @@ public class camControl : MonoBehaviour {
 
 		if (takenPic) {
 
+			//StartCoroutine (takenPicCoroutine());
+
 			cam.clearFlags = CameraClearFlags.SolidColor;
 			cam.cullingMask = (1 << 0 | 1 << 8);
 			cam.fieldOfView = 60;
@@ -120,21 +141,26 @@ public class camControl : MonoBehaviour {
 			actuallyTakingPic = false;
 
 			camFrame.SetActive(true);
-			//StartCoroutine (camBack());
+
+			liftCamTrue = false;
+
+			StartCoroutine (camBack());
+			activateShift = true;
+			takenFirstPic = true;
 
 		}
 
 
 
 		shuttText.GetComponent<Text>().text = shutterSpeed + "";
-		fovText.GetComponent<Text>().text = Mathf.Round( cam.fieldOfView) + "";
+		fovText.GetComponent<Text>().text = Mathf.Round(cam.fieldOfView) + "";
 
 
 		picsLeft = 9 - picNumber;
 
 		if (picsLeft == 0){
 
-			picsLeftText.GetComponent<Text>().text = "roll finished";
+			picsLeftText.GetComponent<Text>().text = "0";
 
 		} else{
 
@@ -155,7 +181,7 @@ public class camControl : MonoBehaviour {
 
 		}
 
-		Debug.Log(rotationVal);
+		//Debug.Log(rotationVal);
 
 	}
 
@@ -181,6 +207,10 @@ public class camControl : MonoBehaviour {
 
 		camFrame.SetActive(true);
 		musicStart = true;
+
+		//****************************************//
+		//GetComponent<BlurOptimized>().enabled = true;
+
 	}
 
 	public IEnumerator camBack(){
@@ -189,6 +219,10 @@ public class camControl : MonoBehaviour {
 		transform.localEulerAngles = new Vector3(0,0.75f,0);
 
 		camFrame.SetActive(false);
+
+
+		//****************************************//
+		//GetComponent<BlurOptimized>().enabled = false;
 
 		camMovLerp -= 1.5f * Time.deltaTime;
 
@@ -210,13 +244,19 @@ public class camControl : MonoBehaviour {
 
 	public IEnumerator startPic(){
 
+
+
 		camFrame.SetActive(false);
 
-		yield return new WaitForSeconds(0.01f);
+		//cam.targetTexture = rendText1;
+
+		takingFirstPic = true;
+
+		yield return new WaitForSeconds(0.05f);
 
 		//cam.depth = 0;
-		//cam2.SetActive (true);
-		//cam.targetTexture = rendText1;
+		cam2.SetActive (true);
+		//cam2.GetComponent<Camera>(). targetTexture = rendText1;
 
 		actuallyTakingPic = true;
 
@@ -231,19 +271,47 @@ public class camControl : MonoBehaviour {
 		yield return new WaitForSeconds(shutterSpeed);
 
 		//cam.depth = 1;
-		//cam2.SetActive (false);
+
 
 
 
 		//endPic = true;
-		Application.CaptureScreenshot( "Assets/Resources/pic" + picNumber + ".png");
+
+		//Application.CaptureScreenshot( "Assets/Resources/pic" + picNumber + ".png");
+//		gallery.pic1 = new Texture2D (rendText1.width, rendText1.height);
+//		gallery.pic1.ReadPixels(new Rect(0, 0, rendText1.width, rendText1.height), 0, 0);
+//		gallery.pic1.Apply();
+
+		saveToTexture = true;
+
+		cam2.SetActive (false);
 
 		yield return new WaitForSeconds(0.5f);
 		takenPic = true;
 
 
+		//StartCoroutine (camBack());
+
+
 
 	}
+
+	void OnPostRender(){
+		if (saveToTexture){
+			gallery.pic1 = new Texture2D (rendText1.width, rendText1.height);
+			gallery.pic1.ReadPixels(new Rect(0, 0, rendText1.width, rendText1.height), 0, 0);
+
+			gallery.pic1 = new Texture2D (Screen.width, Screen.height);
+			gallery.pic1.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+			gallery.pic1.Apply();
+
+			saveToTexture = false;
+
+		}
+
+
+	}
+
 
 
 }
