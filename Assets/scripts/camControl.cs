@@ -40,7 +40,7 @@ public class camControl : MonoBehaviour {
 
 	public float upDownLook = 0f;
 
-	public RenderTexture rendText1;
+	//public RenderTexture rendText1;
 
 	public static float rotationVal = 100f;
 
@@ -57,8 +57,8 @@ public class camControl : MonoBehaviour {
 
 		cam.cullingMask = (1 << 0 | 1 << 8);
 
-		rendText1.width = Screen.width;
-		rendText1.height = Screen.height;
+		//rendText1.width = Screen.width;
+		//rendText1.height = Screen.height;
 
 		darkBox.SetActive(true);
 	}
@@ -255,7 +255,7 @@ public class camControl : MonoBehaviour {
 		yield return new WaitForSeconds(0.05f);
 
 		//cam.depth = 0;
-		cam2.SetActive (true);
+		//cam2.SetActive (true);
 		//cam2.GetComponent<Camera>(). targetTexture = rendText1;
 
 		actuallyTakingPic = true;
@@ -284,7 +284,7 @@ public class camControl : MonoBehaviour {
 
 		saveToTexture = true;
 
-		cam2.SetActive (false);
+		//cam2.SetActive (false);
 
 		yield return new WaitForSeconds(0.5f);
 		takenPic = true;
@@ -298,12 +298,73 @@ public class camControl : MonoBehaviour {
 
 	void OnPostRender(){
 		if (saveToTexture){
-			gallery.pic1 = new Texture2D (rendText1.width, rendText1.height);
-			gallery.pic1.ReadPixels(new Rect(0, 0, rendText1.width, rendText1.height), 0, 0);
+//			gallery.pic1 = new Texture2D (rendText1.width, rendText1.height);
+//			gallery.pic1.ReadPixels(new Rect(0, 0, rendText1.width, rendText1.height), 0, 0);
+
+			if(showPicReal.picShown == 1){
 
 			gallery.pic1 = new Texture2D (Screen.width, Screen.height);
 			gallery.pic1.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 			gallery.pic1.Apply();
+
+			}
+			if(showPicReal.picShown == 2){
+
+				gallery.pic2 = new Texture2D (Screen.width, Screen.height);
+				gallery.pic2.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+				gallery.pic2.Apply();
+
+			}
+			if(showPicReal.picShown == 3){
+
+				gallery.pic3 = new Texture2D (Screen.width, Screen.height);
+				gallery.pic3.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+				gallery.pic3.Apply();
+
+			}
+			if(showPicReal.picShown == 4){
+
+				gallery.pic4 = new Texture2D (Screen.width, Screen.height);
+				gallery.pic4.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+				gallery.pic4.Apply();
+
+			}
+			if(showPicReal.picShown == 5){
+
+				gallery.pic5 = new Texture2D (Screen.width, Screen.height);
+				gallery.pic5.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+				gallery.pic5.Apply();
+
+			}
+			if(showPicReal.picShown == 6){
+
+				gallery.pic6 = new Texture2D (Screen.width, Screen.height);
+				gallery.pic6.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+				gallery.pic6.Apply();
+
+			}
+			if(showPicReal.picShown == 7){
+
+				gallery.pic7 = new Texture2D (Screen.width, Screen.height);
+				gallery.pic7.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+				gallery.pic7.Apply();
+
+			}
+			if(showPicReal.picShown == 8){
+
+				gallery.pic8 = new Texture2D (Screen.width, Screen.height);
+				gallery.pic8.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+				gallery.pic8.Apply();
+
+			}
+			if(showPicReal.picShown == 9){
+
+				gallery.pic9 = new Texture2D (Screen.width, Screen.height);
+				gallery.pic9.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+				gallery.pic9.Apply();
+
+			}
+
 
 			saveToTexture = false;
 

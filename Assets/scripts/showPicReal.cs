@@ -11,7 +11,7 @@ public class showPicReal : MonoBehaviour {
 
 	public static bool picOn = false;
 
-	public int picShown;
+	public static int picShown;
 
 	public GameObject pic1Obj, pic2Obj, pic3Obj, pic4Obj, pic5Obj, pic6Obj, pic7Obj, pic8Obj, pic9Obj;
 
@@ -21,7 +21,7 @@ public class showPicReal : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-
+		//pic1Obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(-190,125,0);
 
 	}
 	
@@ -135,50 +135,68 @@ public class showPicReal : MonoBehaviour {
 
 		if (camControl.picsLeft == 0){
 
-			pic1Obj.transform.position = new Vector3(-190,125,0);
-			pic1Obj.transform.localScale = new Vector3(1,1,1);
+			pic1Obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(-190,125,0);
+			pic1Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(180,120);
 
-			pic2Obj.transform.position = new Vector3(0,125,0);
-			pic2Obj.transform.localScale = new Vector3(1,1,1);
+			pic2Obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,125,0);
+			pic2Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(180,120);
 
-			pic3Obj.transform.position = new Vector3(190,125,0);
-			pic3Obj.transform.localScale = new Vector3(1,1,1);
+			pic3Obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(190,125,0);
+			pic3Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(180,120);
 
-			pic4Obj.transform.position = new Vector3(-190,0,0);
-			pic4Obj.transform.localScale = new Vector3(1,1,1);
+			pic4Obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(-190,0,0);
+			pic4Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(180,120);
 
-			pic5Obj.transform.position = new Vector3(0,0,0);
-			pic5Obj.transform.localScale = new Vector3(1,1,1);
+			pic5Obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,0,0);
+			pic5Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(180,120);
 
-			pic6Obj.transform.position = new Vector3(190,0,0);
-			pic6Obj.transform.localScale = new Vector3(1,1,1);
+			pic6Obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(190,0,0);
+			pic6Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(180,120);
 
-			pic7Obj.transform.position = new Vector3(-190,-125,0);
-			pic7Obj.transform.localScale = new Vector3(1,1,1);
+			pic7Obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(-190,-125,0);
+			pic7Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(180,120);
 
-			pic8Obj.transform.position = new Vector3(0,-125,0);
-			pic8Obj.transform.localScale = new Vector3(1,1,1);
+			pic8Obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,-125,0);
+			pic8Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(180,120);
 
-			pic9Obj.transform.position = new Vector3(190,-125,0);
-			pic9Obj.transform.localScale = new Vector3(1,1,1);
+			pic9Obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(190,-125,0);
+			pic9Obj.GetComponent<RectTransform>().sizeDelta = new Vector2(180,120);
 
 
 
-			if (Input.GetKeyDown(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag != "allPics" && !picOn){ //|| camControl.activatePic){
+			if (Input.GetKey(KeyCode.LeftShift) && !camControl.actuallyTakingPic){// && tag != "allPics" && !picOn){ //|| camControl.activatePic){
 
-				picOn = true;
+				//picOn = true;
 
 				camControl.activateShift = false;
 
-				GetComponent<RawImage>().enabled = true;
+				realPic1.GetComponent<RawImage>().enabled = true;
+				realPic2.GetComponent<RawImage>().enabled = true;
+				realPic3.GetComponent<RawImage>().enabled = true;
+				realPic4.GetComponent<RawImage>().enabled = true;
+				realPic5.GetComponent<RawImage>().enabled = true;
+				realPic6.GetComponent<RawImage>().enabled = true;
+				realPic7.GetComponent<RawImage>().enabled = true;
+				realPic8.GetComponent<RawImage>().enabled = true;
+				realPic9.GetComponent<RawImage>().enabled = true;
 
 				greyOut.SetActive(true);
-				blackBackground.SetActive(true);
+				//blackBackground.SetActive(true);
 
 			}else{ //if(Input.GetKeyDown(KeyCode.LeftShift) && !camControl.actuallyTakingPic && tag != "allPics" && picOn) {
-				GetComponent<RawImage>().enabled = false;
+
+				realPic1.GetComponent<RawImage>().enabled = false;
+				realPic2.GetComponent<RawImage>().enabled = false;
+				realPic3.GetComponent<RawImage>().enabled = false;
+				realPic4.GetComponent<RawImage>().enabled = false;
+				realPic5.GetComponent<RawImage>().enabled = false;
+				realPic6.GetComponent<RawImage>().enabled = false;
+				realPic7.GetComponent<RawImage>().enabled = false;
+				realPic8.GetComponent<RawImage>().enabled = false;
+				realPic9.GetComponent<RawImage>().enabled = false;
+
 				greyOut.SetActive(false);
-				blackBackground.SetActive(false);
+				//blackBackground.SetActive(false);
 
 				//picOn = false;
 
@@ -202,14 +220,48 @@ public class showPicReal : MonoBehaviour {
 
 			if (Input.GetKey(KeyCode.LeftShift) && !camControl.actuallyTakingPic){ //&& tag == "allPics"){
 
+				if(picShown == 1){
 				realPic1.GetComponent<RawImage>().enabled = true;
+				}
+				if(picShown == 2){
+					realPic2.GetComponent<RawImage>().enabled = true;
+				}
+				if(picShown == 3){
+					realPic3.GetComponent<RawImage>().enabled = true;
+				}
+				if(picShown == 4){
+					realPic4.GetComponent<RawImage>().enabled = true;
+				}
+				if(picShown == 5){
+					realPic5.GetComponent<RawImage>().enabled = true;
+				}
+				if(picShown == 6){
+					realPic6.GetComponent<RawImage>().enabled = true;
+				}
+				if(picShown == 7){
+					realPic7.GetComponent<RawImage>().enabled = true;
+				}
+				if(picShown == 8){
+					realPic8.GetComponent<RawImage>().enabled = true;
+				}
+				if(picShown == 9){
+					realPic9.GetComponent<RawImage>().enabled = true;
+				}
 				greyOut.SetActive(true);
-				blackBackground.SetActive(true);
+				//blackBackground.SetActive(true);
 
 			} else {
 				realPic1.GetComponent<RawImage>().enabled = false;
+				realPic2.GetComponent<RawImage>().enabled = false;
+				realPic3.GetComponent<RawImage>().enabled = false;
+				realPic4.GetComponent<RawImage>().enabled = false;
+				realPic5.GetComponent<RawImage>().enabled = false;
+				realPic6.GetComponent<RawImage>().enabled = false;
+				realPic7.GetComponent<RawImage>().enabled = false;
+				realPic8.GetComponent<RawImage>().enabled = false;
+				realPic9.GetComponent<RawImage>().enabled = false;
 				greyOut.SetActive(false);
-				blackBackground.SetActive(false);
+				//blackBackground.SetActive(false);
 
 			}
 
