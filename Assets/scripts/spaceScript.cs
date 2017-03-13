@@ -30,6 +30,12 @@ public class spaceScript : MonoBehaviour {
 			GetComponent<Image>().enabled = false;
 
 		}
+
+		if (!camControl.takingPic){
+
+			GetComponent<Image>().enabled = false;
+
+		}
 	}
 
 	public IEnumerator spaceAppear(){

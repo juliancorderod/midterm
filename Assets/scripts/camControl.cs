@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using UnityStandardAssets.ImageEffects;
+using UnityStandardAssets.ImageEffects;
 
 public class camControl : MonoBehaviour {
 
@@ -47,6 +47,11 @@ public class camControl : MonoBehaviour {
 	public showPicReal gallery;
 
 	public GameObject darkBox;
+
+	public GameObject rotateThingy;
+
+	public GameObject shutt1Sound;
+	public GameObject shutt2Sound;
 
 
 	bool saveToTexture = false;
@@ -148,6 +153,14 @@ public class camControl : MonoBehaviour {
 			activateShift = true;
 			takenFirstPic = true;
 
+//			if (rotateThingy.transform.localEulerAngles.y >= -70f){
+//
+//			rotateThingy.transform.localEulerAngles += new Vector3 (0, - 1 * Time.deltaTime , 0);
+//
+//			}
+			//**************************
+			//hacer ienum coso
+
 		}
 
 
@@ -222,7 +235,7 @@ public class camControl : MonoBehaviour {
 
 
 		//****************************************//
-		//GetComponent<BlurOptimized>().enabled = false;
+		GetComponent<BlurOptimized>().enabled = false;
 
 		camMovLerp -= 1.5f * Time.deltaTime;
 
@@ -254,6 +267,8 @@ public class camControl : MonoBehaviour {
 
 		yield return new WaitForSeconds(0.05f);
 
+		GetComponent<BlurOptimized>().enabled = true;
+
 		//cam.depth = 0;
 		//cam2.SetActive (true);
 		//cam2.GetComponent<Camera>(). targetTexture = rendText1;
@@ -263,9 +278,15 @@ public class camControl : MonoBehaviour {
 		picNumber += 1;
 		rotationVal = 25f;
 
+		cam.clearFlags = CameraClearFlags.Nothing;
+
+		yield return new WaitForSeconds(0.05f);
+
 		cam.cullingMask = (1 << 0);//this ignores cars
 
-		cam.clearFlags = CameraClearFlags.Nothing;
+
+
+
 
 
 		yield return new WaitForSeconds(shutterSpeed);

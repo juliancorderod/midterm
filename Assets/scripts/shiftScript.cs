@@ -7,6 +7,8 @@ public class shiftScript : MonoBehaviour {
 
 	public float secToAppear;
 
+	bool shiftOff = false;
+
 	// Use this for initialization
 	void Start () {
 
@@ -15,7 +17,7 @@ public class shiftScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Debug.Log(showPic.picOn);
+		//Debug.Log(showPic.picOn);
 
 		if(camControl.takenFirstPic){
 
@@ -38,6 +40,22 @@ public class shiftScript : MonoBehaviour {
 
 			GetComponent<Image>().enabled = false;
 
+			shiftOff = true;
+
+		}
+
+		if (camControl.takingPic){
+
+			GetComponent<Image>().enabled = false;
+
+			//GetComponent<Image>().color += new Color(0,0,0,0);
+
+		}
+
+		if (shiftOff){
+
+			GetComponent<Image>().enabled = false;
+
 		}
 	}
 
@@ -51,6 +69,13 @@ public class shiftScript : MonoBehaviour {
 		yield return new WaitForSeconds(secToAppear);
 
 		GetComponent<Image>().color += new Color(0,0,0,0.2f * Time.deltaTime);
+
+//		while (GetComponent<Image>().color.a <= 1){
+//
+//			yield return null;
+//		}
+
+		//shiftOff = true;
 
 		//}
 
