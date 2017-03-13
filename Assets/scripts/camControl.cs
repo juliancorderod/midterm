@@ -53,6 +53,8 @@ public class camControl : MonoBehaviour {
 	public GameObject shutt1Sound;
 	public GameObject shutt2Sound;
 
+	public GameObject rewindCam;
+
 
 	bool saveToTexture = false;
 
@@ -136,6 +138,8 @@ public class camControl : MonoBehaviour {
 
 			//StartCoroutine (takenPicCoroutine());
 
+//			shutt2Sound.GetComponent<AudioSource>().Play();
+
 			cam.clearFlags = CameraClearFlags.SolidColor;
 			cam.cullingMask = (1 << 0 | 1 << 8);
 			cam.fieldOfView = 60;
@@ -152,6 +156,12 @@ public class camControl : MonoBehaviour {
 			StartCoroutine (camBack());
 			activateShift = true;
 			takenFirstPic = true;
+
+			cameraMesh.GetComponent<Animator>().Play("rewindCam");
+
+			//rewindCam.GetComponent<Animation>().Play();
+
+
 
 //			if (rotateThingy.transform.localEulerAngles.y >= -70f){
 //
@@ -221,7 +231,7 @@ public class camControl : MonoBehaviour {
 		camFrame.SetActive(true);
 		musicStart = true;
 
-		//****************************************//
+
 		//GetComponent<BlurOptimized>().enabled = true;
 
 	}
@@ -234,7 +244,6 @@ public class camControl : MonoBehaviour {
 		camFrame.SetActive(false);
 
 
-		//****************************************//
 		GetComponent<BlurOptimized>().enabled = false;
 
 		camMovLerp -= 1.5f * Time.deltaTime;
@@ -261,9 +270,13 @@ public class camControl : MonoBehaviour {
 
 		camFrame.SetActive(false);
 
+		shutt1Sound.GetComponent<AudioSource>().Play();
+
 		//cam.targetTexture = rendText1;
 
 		takingFirstPic = true;
+
+
 
 		yield return new WaitForSeconds(0.05f);
 
@@ -279,6 +292,8 @@ public class camControl : MonoBehaviour {
 		rotationVal = 25f;
 
 		cam.clearFlags = CameraClearFlags.Nothing;
+
+
 
 		yield return new WaitForSeconds(0.05f);
 
@@ -306,6 +321,7 @@ public class camControl : MonoBehaviour {
 		saveToTexture = true;
 
 		//cam2.SetActive (false);
+		shutt2Sound.GetComponent<AudioSource>().Play();
 
 		yield return new WaitForSeconds(0.5f);
 		takenPic = true;
@@ -324,9 +340,9 @@ public class camControl : MonoBehaviour {
 
 			if(showPicReal.picShown == 1){
 
-			gallery.pic1 = new Texture2D (Screen.width, Screen.height);
-			gallery.pic1.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
-			gallery.pic1.Apply();
+				gallery.pic1 = new Texture2D (Screen.width, Screen.height);
+				gallery.pic1.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+				gallery.pic1.Apply();
 
 			}
 			if(showPicReal.picShown == 2){
