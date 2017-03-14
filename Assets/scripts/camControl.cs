@@ -345,7 +345,10 @@ public class camControl : MonoBehaviour {
 
 		takingFirstPic = true;
 
+		while (camFrame.activeSelf == true){
 
+			yield return null;
+		}
 
 		yield return new WaitForSeconds(0.05f);
 
@@ -363,8 +366,14 @@ public class camControl : MonoBehaviour {
 		cam.clearFlags = CameraClearFlags.Nothing;
 
 
+		while (cam.clearFlags == CameraClearFlags.SolidColor){
+
+			yield return null;
+		}
 
 		yield return new WaitForSeconds(0.05f);
+
+
 
 		cam.cullingMask = (1 << 0);//this ignores cars
 
@@ -391,6 +400,11 @@ public class camControl : MonoBehaviour {
 
 		//cam2.SetActive (false);
 		shutt2Sound.GetComponent<AudioSource>().Play();
+
+		while (saveToTexture == false){
+
+			yield return null;
+		}
 
 		yield return new WaitForSeconds(0.5f);
 		takenPic = true;

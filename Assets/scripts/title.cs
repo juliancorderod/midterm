@@ -38,7 +38,7 @@ public class title : MonoBehaviour {
 
 
 
-		yield return new WaitForSeconds(10f);
+		yield return new WaitForSeconds(8f);
 
 		GetComponent<Text>().color -= new Color(0,0,0,0.4f * Time.deltaTime);
 		title2.GetComponent<Text>().color -= new Color(0,0,0,0.4f * Time.deltaTime);
