@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 4f05a13a39f3d42a884a3faf0e1f8b2a
+timeCreated: 1489457669
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Piparivahtiperhonen
+  fontNames:
+  - Piparivahtiperhonen
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

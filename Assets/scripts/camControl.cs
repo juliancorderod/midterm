@@ -55,6 +55,8 @@ public class camControl : MonoBehaviour {
 
 	public GameObject rewindCam;
 
+	public GameObject titleObj;
+
 
 	bool saveToTexture = false;
 
@@ -84,6 +86,9 @@ public class camControl : MonoBehaviour {
 
 			liftCamTrue = true; 
 			liftCamTrueFirst = true;
+
+			titleObj.SetActive (false);
+
 		}
 		if (liftCamTrue && camMovLerp <= 1){
 
@@ -193,7 +198,7 @@ public class camControl : MonoBehaviour {
 
 
 
-		if (Input.GetKeyDown(KeyCode.E) && !actuallyTakingPic && shutterSpeed  <= 19){
+		if (Input.GetKeyDown(KeyCode.E) && !actuallyTakingPic && shutterSpeed  <= 29){
 
 			shutterSpeed += 1;
 
