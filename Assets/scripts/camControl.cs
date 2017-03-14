@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.ImageEffects;
+using System.IO;
 
 public class camControl : MonoBehaviour {
 
@@ -412,12 +413,18 @@ public class camControl : MonoBehaviour {
 				gallery.pic1.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 				gallery.pic1.Apply();
 
+				byte[] bytes1 = gallery.pic1.EncodeToPNG();
+				File.WriteAllBytes(Application.dataPath +"/../../SavedPics/pic1.png", bytes1);
+
 			}
 			if(showPicReal.picShown == 2){
 
 				gallery.pic2 = new Texture2D (Screen.width, Screen.height);
 				gallery.pic2.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 				gallery.pic2.Apply();
+
+				byte[] bytes2 = gallery.pic2.EncodeToPNG();
+				File.WriteAllBytes(Application.dataPath +"/../../SavedPics/pic2.png", bytes2);
 
 			}
 			if(showPicReal.picShown == 3){
@@ -426,12 +433,18 @@ public class camControl : MonoBehaviour {
 				gallery.pic3.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 				gallery.pic3.Apply();
 
+				byte[] bytes3 = gallery.pic3.EncodeToPNG();
+				File.WriteAllBytes(Application.dataPath +"/../../SavedPics/pic3.png", bytes3);
+
 			}
 			if(showPicReal.picShown == 4){
 
 				gallery.pic4 = new Texture2D (Screen.width, Screen.height);
 				gallery.pic4.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 				gallery.pic4.Apply();
+
+				byte[] bytes4 = gallery.pic4.EncodeToPNG();
+				File.WriteAllBytes(Application.dataPath +"/../../SavedPics/pic4.png", bytes4);
 
 			}
 			if(showPicReal.picShown == 5){
@@ -440,12 +453,18 @@ public class camControl : MonoBehaviour {
 				gallery.pic5.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 				gallery.pic5.Apply();
 
+				byte[] bytes5 = gallery.pic5.EncodeToPNG();
+				File.WriteAllBytes(Application.dataPath +"/../../SavedPics/pic5.png", bytes5);
+
 			}
 			if(showPicReal.picShown == 6){
 
 				gallery.pic6 = new Texture2D (Screen.width, Screen.height);
 				gallery.pic6.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 				gallery.pic6.Apply();
+
+				byte[] bytes6 = gallery.pic6.EncodeToPNG();
+				File.WriteAllBytes(Application.dataPath +"/../../SavedPics/pic6.png", bytes6);
 
 			}
 			if(showPicReal.picShown == 7){
@@ -454,6 +473,9 @@ public class camControl : MonoBehaviour {
 				gallery.pic7.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 				gallery.pic7.Apply();
 
+				byte[] bytes7 = gallery.pic7.EncodeToPNG();
+				File.WriteAllBytes(Application.dataPath +"/../../SavedPics/pic7.png", bytes7);
+
 			}
 			if(showPicReal.picShown == 8){
 
@@ -461,12 +483,18 @@ public class camControl : MonoBehaviour {
 				gallery.pic8.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 				gallery.pic8.Apply();
 
+				byte[] bytes8 = gallery.pic8.EncodeToPNG();
+				File.WriteAllBytes(Application.dataPath +"/../../SavedPics/pic8.png", bytes8);
+
 			}
 			if(showPicReal.picShown == 9){
 
 				gallery.pic9 = new Texture2D (Screen.width, Screen.height);
 				gallery.pic9.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 				gallery.pic9.Apply();
+
+				byte[] bytes9 = gallery.pic9.EncodeToPNG();
+				File.WriteAllBytes(Application.dataPath +"/../../SavedPics/pic9.png", bytes9);
 
 			}
 
