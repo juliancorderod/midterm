@@ -75,6 +75,12 @@ public class camControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (Input.GetKeyDown(KeyCode.Escape)){
+
+			Application.Quit();
+
+		}
+
 		Cursor.lockState = CursorLockMode.Locked;
 
 		cameraMesh.transform.localPosition = new Vector3(Mathf.Lerp(0.11f, 0,camMovLerp), Mathf.Lerp( 0.19f, 0.5f,camMovLerp), Mathf.Lerp(0.82f, 0.5f,camMovLerp));
@@ -210,6 +216,63 @@ public class camControl : MonoBehaviour {
 		}
 
 		//Debug.Log(rotationVal);
+
+
+
+		// cheattssssssssss wujuuuu
+
+		if (Input.GetKey(KeyCode.Alpha1)){
+
+			GetComponent<Fisheye>().enabled = true;
+
+
+		}else {
+
+			GetComponent<Fisheye>().enabled = false;
+
+		}
+
+		if (Input.GetKey(KeyCode.Alpha2)){
+
+			GetComponent<ColorCorrectionCurves>().enabled = true;
+
+
+		}else {
+
+			GetComponent<ColorCorrectionCurves>().enabled = false;
+
+		}
+
+		if (Input.GetKey(KeyCode.Alpha3)){
+
+			GetComponent<ColorCorrectionLookup>().enabled = true;
+
+
+		}else {
+
+			GetComponent<ColorCorrectionLookup>().enabled = false;
+
+		}
+		if (Input.GetKey(KeyCode.Alpha4)){
+
+			GetComponent<VignetteAndChromaticAberration>().enabled = true;
+
+
+		}else {
+
+			GetComponent<VignetteAndChromaticAberration>().enabled = false;
+
+		}
+		if (Input.GetKey(KeyCode.Alpha5)){
+
+			GetComponent<ContrastEnhance>().enabled = true;
+
+
+		}else {
+
+			GetComponent<ContrastEnhance>().enabled = false;
+
+		}
 
 	}
 
