@@ -345,6 +345,8 @@ public class camControl : MonoBehaviour {
 
 		takingFirstPic = true;
 
+		GetComponent<BlurOptimized>().enabled = true;
+
 		while (camFrame.activeSelf == true){
 
 			yield return null;
@@ -352,7 +354,7 @@ public class camControl : MonoBehaviour {
 
 		yield return new WaitForSeconds(0.05f);
 
-		GetComponent<BlurOptimized>().enabled = true;
+
 
 		//cam.depth = 0;
 		//cam2.SetActive (true);
