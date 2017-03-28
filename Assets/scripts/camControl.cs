@@ -71,6 +71,8 @@ public class camControl : MonoBehaviour {
 		//rendText1.height = Screen.height;
 
 		darkBox.SetActive(true);
+
+		Debug.Log(Application.persistentDataPath);
 	}
 	
 	// Update is called once per frame
@@ -431,6 +433,8 @@ public class camControl : MonoBehaviour {
 
 				byte[] bytes1 = gallery.pic1.EncodeToPNG();
 				File.WriteAllBytes(Application.dataPath +"/../../SavedPics/pic1.png", bytes1);
+				//File.WriteAllBytes(Application.persistentDataPath +"/../../../../Desktop/pic1.png", bytes1);
+
 
 			}
 			if(showPicReal.picShown == 2){
