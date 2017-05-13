@@ -22,6 +22,8 @@ public class player : MonoBehaviour {
 		control.Move(transform.right * Time.deltaTime * horizontal * 5f);
 		transform.Rotate(0,Input.GetAxis("Mouse X") * Time.deltaTime * camControl.rotationVal,0);
 
+		control.Move(transform.up * -Time.deltaTime * 10f);
+
 		
 	}
 }

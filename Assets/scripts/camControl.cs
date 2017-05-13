@@ -88,6 +88,14 @@ public class camControl : MonoBehaviour {
 
 		cameraMesh.transform.localPosition = new Vector3(Mathf.Lerp(0.11f, 0,camMovLerp), Mathf.Lerp( 0.19f, 0.5f,camMovLerp), Mathf.Lerp(0.82f, 0.5f,camMovLerp));
 
+
+//		upDownLook -= Input.GetAxis("Mouse Y") * Time.deltaTime * rotationVal;
+//		upDownLook = Mathf.Clamp(upDownLook,-80f,80f);
+//
+//		transform.eulerAngles = new Vector3(upDownLook, transform.eulerAngles.y,0);
+
+
+
 		if(Input.GetKeyDown(KeyCode.Tab) && !takingPic){
 			//&& !actuallyTakingPic){
 
@@ -125,13 +133,14 @@ public class camControl : MonoBehaviour {
 		} 
 
 		if(takingPic){
+			//THIS IS SO YOU ONLY LOOK UP AND DOWN WHEN VIEWING THROUGH CAMERA
 
 			upDownLook -= Input.GetAxis("Mouse Y") * Time.deltaTime * rotationVal;
 			upDownLook = Mathf.Clamp(upDownLook,-80f,80f);
 
-			//rotationVal = 80;
-
 			transform.eulerAngles = new Vector3(upDownLook, transform.eulerAngles.y,0);
+
+			//rotationVal = 80;
 
 			if(Input.GetKey(KeyCode.Z) && cam.fieldOfView >= 1f){
 
