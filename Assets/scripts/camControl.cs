@@ -409,12 +409,12 @@ public class camControl : MonoBehaviour {
 //		gallery.pic1.ReadPixels(new Rect(0, 0, rendText1.width, rendText1.height), 0, 0);
 //		gallery.pic1.Apply();
 
-		saveToTexture = true;
+		saveToTexture = true;//TURN THIS BACK ON!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		//cam2.SetActive (false);
 		shutt2Sound.GetComponent<AudioSource>().Play();
 
-		while (saveToTexture == false){
+		while (saveToTexture == false){//TURN THIS BACK ON!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 			yield return null;
 		}
