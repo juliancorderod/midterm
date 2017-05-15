@@ -12,7 +12,8 @@ public class fireflyManager : MonoBehaviour {
 	void Start () {
 
 		for(int i = 0; i < fireflyNumber; i++){
-			Instantiate(fireFlyObj, new Vector3(Random.Range(-30.00f,30.00f), Random.Range(-5.00f,15.00f) , Random.Range(-50.00f,-10.00f)), Quaternion.identity);//.Euler (Random.Range(0,360),Random.Range(0,360),Random.Range(0,360)));
+			Instantiate(fireFlyObj, new Vector3(Random.Range(-30.00f,30.00f), 
+				Random.Range(-10.00f,8.00f) , Random.Range(-30.00f,-10.00f)), Quaternion.identity);
 		}
 
 		

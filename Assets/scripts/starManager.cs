@@ -9,8 +9,8 @@ public class starManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		for(int i = 0; i < 80; i++){
-			Instantiate(starObj, new Vector3(Random.Range(-500.0f,500.0f), 200 , Random.Range(-500.0f,500.0f)), Quaternion.identity);//.Euler (Random.Range(0,360),Random.Range(0,360),Random.Range(0,360)));
+		for(int i = 0; i < 100; i++){
+			Instantiate(starObj, new Vector3(Random.Range(-500.0f,500.0f), 300 , Random.Range(-500.0f,500.0f)), Quaternion.identity);//.Euler (Random.Range(0,360),Random.Range(0,360),Random.Range(0,360)));
 		}
 
 	}
